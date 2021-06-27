@@ -144,6 +144,34 @@ TEST_CASE("TimeSpec tests", "[basic]")
             REQUIRE(test_time.tv_sec == 8);
             REQUIRE(test_time.tv_nsec == 149999999);
         }
+
+        {
+            const struct timespec test_time = 1_ms;
+
+            REQUIRE(test_time.tv_sec == 0);
+            REQUIRE(test_time.tv_nsec == 1000000);
+        }
+
+        {
+            const struct timespec test_time = 1000_ms;
+
+            REQUIRE(test_time.tv_sec == 1);
+            REQUIRE(test_time.tv_nsec == 0);
+        }
+        
+        {
+            const struct timespec test_time = 5001_ms;
+
+            REQUIRE(test_time.tv_sec == 5);
+            REQUIRE(test_time.tv_nsec == 1000000);
+        }
+
+        {
+            const struct timespec test_time = 4999_ms;
+
+            REQUIRE(test_time.tv_sec == 4);
+            REQUIRE(test_time.tv_nsec == 999000000);
+        }
     }
 
     SECTION("Addition Tests")

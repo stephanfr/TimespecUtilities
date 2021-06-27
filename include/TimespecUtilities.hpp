@@ -10,6 +10,9 @@
 namespace SEFUtility::timespec
 {
     constexpr long ONE_SECOND_IN_NANOSECONDS = 1000000000;
+    constexpr long ONE_SECOND_IN_MILLISECONDS = 1000;
+
+    constexpr long NANOSECONDS_PER_MILLISECOND = 1000000;
 
     namespace internal
     {
@@ -72,6 +75,18 @@ namespace SEFUtility::timespec
         struct timespec value
         {
             static_cast<__time_t>(floor(secs)), static_cast<long>((secs - floor(secs)) * ONE_SECOND_IN_NANOSECONDS)
+        };
+
+        return value;
+    }
+
+    constexpr struct timespec operator""_ms(unsigned long long millisecs)
+    {
+        assert(millisecs < LONG_MAX);
+
+        struct timespec value
+        {
+            static_cast<__time_t>(millisecs / ONE_SECOND_IN_MILLISECONDS), static_cast<long>(( millisecs % ONE_SECOND_IN_MILLISECONDS ) * NANOSECONDS_PER_MILLISECOND )
         };
 
         return value;
