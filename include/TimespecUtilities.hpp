@@ -10,7 +10,7 @@
 namespace SEFUtility::timespec
 {
     constexpr long NANOSECONDS_PER_SECOND = 1000000000;
-    constexpr long MILLISECOND_PER_SECOND = 1000;
+    constexpr long MILLISECONDS_PER_SECOND = 1000;
 
     constexpr long NANOSECONDS_PER_MILLISECOND = 1000000;
 
@@ -59,7 +59,7 @@ namespace SEFUtility::timespec
 
         struct timespec value
         {
-            static_cast<__time_t>(millisecs / MILLISECOND_PER_SECOND), static_cast<long>(( millisecs % MILLISECOND_PER_SECOND ) * NANOSECONDS_PER_MILLISECOND )
+            static_cast<__time_t>(millisecs / MILLISECONDS_PER_SECOND), static_cast<long>(( millisecs % MILLISECONDS_PER_SECOND ) * NANOSECONDS_PER_MILLISECOND )
         };
 
         return value;
