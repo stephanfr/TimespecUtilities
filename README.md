@@ -7,7 +7,7 @@ The _s 'seconds' and '_ms' milliseconds suffix operator is defined for struct ti
 
 # Examples
 
-''''
+````
     const struct timespec five_seconds = 5_s;
     const struct timespec one_and_one_half_seconds = 1.5_s;
     const struct timespec five_hundred_milliseconds = 500_ms;
@@ -17,4 +17,4 @@ The _s 'seconds' and '_ms' milliseconds suffix operator is defined for struct ti
 
     const struct timespec ten_seconds = five_seconds * 2;
     const struct timespec fifty_milliseconds = five_hundred_milliseconds * 0.1;
-''''
+````
