@@ -16,11 +16,13 @@ namespace SEFUtility::timespec
 
     namespace internal
     {
+        inline
         int64_t to_nanos( const struct timespec& value )
         {
             return ( value.tv_sec * NANOSECONDS_PER_SECOND ) + value.tv_nsec;
         }
 
+        inline
         struct timespec from_nanos( int64_t     value )
         {
             int64_t     seconds = value / NANOSECONDS_PER_SECOND;
@@ -29,6 +31,7 @@ namespace SEFUtility::timespec
         }
     }  // namespace internal
 
+    inline
     constexpr struct timespec operator""_s(unsigned long long secs)
     {
         assert(secs < LONG_MAX);
@@ -41,6 +44,7 @@ namespace SEFUtility::timespec
         return value;
     }
 
+    inline
     constexpr struct timespec operator""_s(long double secs)
     {
         assert(secs < LONG_MAX);
@@ -53,6 +57,7 @@ namespace SEFUtility::timespec
         return value;
     }
 
+    inline
     constexpr struct timespec operator""_ms(unsigned long long millisecs)
     {
         assert(millisecs < LONG_MAX);
@@ -65,11 +70,13 @@ namespace SEFUtility::timespec
         return value;
     }
 
+    inline
     struct timespec operator+(struct timespec ts1, struct timespec ts2)
     {
         return internal::from_nanos( internal::to_nanos( ts1 ) + internal::to_nanos( ts2 ) );
     }
 
+    inline
     struct timespec operator-(struct timespec ts1, struct timespec ts2)
     {
         int64_t result_nanos = internal::to_nanos( ts1 ) - internal::to_nanos( ts2 );
@@ -79,11 +86,13 @@ namespace SEFUtility::timespec
         return internal::from_nanos( result_nanos );
     }
 
+    inline
     struct timespec operator*(struct timespec ts1, unsigned long scalar)
     {
         return internal::from_nanos( internal::to_nanos( ts1 ) * scalar );
     }
 
+    inline
     struct timespec operator*(struct timespec ts1, double multiplier)
     {
         assert( multiplier >= 0  );
