@@ -77,13 +77,29 @@ namespace SEFUtility::timespec
     }
 
     inline
+    struct timespec& operator+=(struct timespec& ts1, const struct timespec& ts2)
+    {
+        ts1 = internal::from_nanos( internal::to_nanos( ts1 ) + internal::to_nanos( ts2 ) );
+
+        return ts1;
+    }
+
+    inline
     struct timespec operator-(struct timespec ts1, struct timespec ts2)
     {
-        int64_t result_nanos = internal::to_nanos( ts1 ) - internal::to_nanos( ts2 );
-
-        result_nanos = std::max( result_nanos, static_cast<int64_t>(0) );
+        int64_t result_nanos = std::max( internal::to_nanos( ts1 ) - internal::to_nanos( ts2 ), static_cast<int64_t>(0) );
 
         return internal::from_nanos( result_nanos );
+    }
+
+    inline
+    struct timespec& operator-=(struct timespec& ts1, const struct timespec& ts2)
+    {
+        int64_t result_nanos = std::max( internal::to_nanos( ts1 ) - internal::to_nanos( ts2 ), static_cast<int64_t>(0) );
+
+        ts1 = internal::from_nanos( result_nanos );
+
+        return ts1;
     }
 
     inline
@@ -93,11 +109,29 @@ namespace SEFUtility::timespec
     }
 
     inline
+    struct timespec& operator*=(struct timespec& ts1, unsigned long scalar)
+    {
+        ts1 = internal::from_nanos( internal::to_nanos( ts1 ) * scalar );
+
+        return ts1;
+    }
+
+    inline
     struct timespec operator*(struct timespec ts1, double multiplier)
     {
         assert( multiplier >= 0  );
 
         return internal::from_nanos( internal::to_nanos( ts1 ) * multiplier );
+    }
+
+    inline
+    struct timespec& operator*=(struct timespec& ts1, double multiplier)
+    {
+        assert( multiplier >= 0  );
+
+        ts1 = internal::from_nanos( internal::to_nanos( ts1 ) * multiplier );
+
+        return ts1;
     }
 
 }  // namespace SEFUtility::timespec
